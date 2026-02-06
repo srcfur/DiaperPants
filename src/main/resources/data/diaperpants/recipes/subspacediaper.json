@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "diaperpants:megadiaper"
+        },
+        {
+            "item": "minecraft:purple_dye"
+        },
+        {
+            "item": "minecraft:pink_dye"
+        },
+        {
+            "item": "minecraft:purple_dye"
+        }
+    ],
+    "result": {
+        "item": "diaperpants:subspacediaper",
+        "count": 1
+    }
+}

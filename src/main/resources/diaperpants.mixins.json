@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.srcfur.diaperpants.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ModEntityDataSaverMixin",
+    "ArmorMixin",
+    "ItemStackMixin",
+    "BedWetterMixin",
+    "ServerWorldMixin",
+    "PlayerBladderSyncFix",
+    "PeeInBucketMixin",
+    "PeeInBottleMixin",
+    "IFoodMixin",
+    "PottyOverride"
+  ],
+  "client": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

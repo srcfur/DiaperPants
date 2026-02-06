@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "DDD",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:paper"
+        },
+        "D": {
+            "item": "diaperpants:diapercore"
+        }
+    },
+    "result": {
+        "item": "diaperpants:threediapercore",
+        "count": 1
+    }
+}

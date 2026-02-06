@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "l  ",
+    "l l",
+    "lll"
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "diaperpants:toilet_basic"
+  }
+}

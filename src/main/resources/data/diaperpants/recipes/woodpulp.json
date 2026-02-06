@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "SS ",
+        "SS ",
+        "   "
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:paper"
+        }
+    },
+    "result": {
+        "item": "diaperpants:woodpulp",
+        "count": 1
+    }
+}

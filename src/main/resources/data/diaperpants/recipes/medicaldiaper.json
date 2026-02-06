@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        " D ",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:white_wool"
+        },
+        "D": {
+            "item": "diaperpants:diapercore"
+        }
+    },
+    "result": {
+        "item": "diaperpants:medicaldiaper",
+        "count": 1
+    }
+}

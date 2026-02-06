@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "diaperpants",
+  "version": "${version}",
+
+  "name": "Diaper Pants",
+  "description": "This mod adds a variety of things, but mainly diapers :3",
+  "authors": [
+    "srcfur"
+  ],
+  "contact": {
+    "homepage": "https://srcfur.com",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/diaperpants/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.srcfur.diaperpants.DiaperModDataGeneration"
+    ],
+    "main": [
+      "com.srcfur.diaperpants.DiaperPants"
+    ],
+    "client": [
+      "com.srcfur.diaperpants.DiaperPantsClient"
+    ]
+  },
+  "mixins": [
+    "diaperpants.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric": "*",
+    "minecraft": "~1.18.2",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
