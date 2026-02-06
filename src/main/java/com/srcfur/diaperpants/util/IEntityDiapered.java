@@ -1,8 +1,19 @@
 package com.srcfur.diaperpants.util;
 
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
+import net.minecraft.util.Pair;
+
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
 
 public class IEntityDiapered {
     public static final String BLADDER_KEY = "bladder";
@@ -12,13 +23,28 @@ public class IEntityDiapered {
     public static final String POTTYSPEED_KEY = "pottyspeed";
 
     public static final int DEFAULT_CONTINENCE = 40;
+    public static final int CONTINENCE_TO_BLADDER_LEVEL = 4;
+
+    public static Optional<ItemStack> getDiaperFromPlayer(PlayerEntity ent){
+        Optional<TrinketComponent> tcomp = TrinketsApi.getTrinketComponent((LivingEntity) ent);
+        if(tcomp.isPresent()) {
+            List<Pair<SlotReference, ItemStack>> items = tcomp.get().getAllEquipped();
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getRight().getItem().getClass() == DiaperArmorItem.class) {
+                    return Optional.of(items.get(i).getRight());
+                }
+            }
+        }
+        return Optional.empty();
+    }
 
     public static boolean checkDiapered(PlayerEntity ent){
-        ItemStack leggings = ent.getInventory().getArmorStack(1);
-        if(leggings.isEmpty()){
-            return false;
-        }
-        return leggings.getItem().getClass() == DiaperArmorItem.class || DiaperArmorItem.class.isAssignableFrom(leggings.getItem().getClass());
+        Optional<ItemStack> diaper = getDiaperFromPlayer(ent);
+        return diaper.isPresent();
+    }
+
+    public static boolean isItemADiaper(Item item){
+        return item.getClass() == DiaperArmorItem.class || DiaperArmorItem.class.isAssignableFrom(item.getClass());
     }
 
     public static int getBladderLevel(PlayerEntity ent){

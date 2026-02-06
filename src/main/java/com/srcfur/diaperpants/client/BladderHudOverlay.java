@@ -48,7 +48,7 @@ public class BladderHudOverlay implements HudRenderCallback {
 
             int continence = IEntityDiapered.getContinenceLevel(client.player);
 
-            int contscale = continence / 4;
+            int contscale = continence / IEntityDiapered.CONTINENCE_TO_BLADDER_LEVEL;
 
             for(int i = 0; i < contscale; i++){
                 DrawableHelper.drawTexture(matrixStack, x - 2 + (i * 9) - (int)(contscale * 4.5), y - actoffset, 0, 0, 12, 12, 12, 12);

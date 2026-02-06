@@ -12,14 +12,15 @@ import com.srcfur.diaperpants.networking.ModMessages;
 import com.srcfur.diaperpants.util.IEntityDataSaver;
 import com.srcfur.diaperpants.util.IEntityDiapered;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class BladderManager implements ServerTickEvents.StartWorldTick {
     public static final int TicksBetweenBladderGainPossibilities = 80;
     public static void syncBladder(ServerPlayerEntity player){
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeInt(((IEntityDataSaver)player).getPersistentData().getInt("bladder"));
-        buffer.writeInt(((IEntityDataSaver)player).getPersistentData().getInt("continence"));
+        buffer.writeInt(IEntityDiapered.getBladderLevel(player));
+        buffer.writeInt(IEntityDiapered.getContinenceLevel(player));
         ServerPlayNetworking.send(player, ModMessages.BLADDER_SYNC_ID, buffer);
     }
 
@@ -49,16 +50,25 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
         boolean accidentCaughtByDiaper = false;
         ItemStack leggings =  player.getInventory().getArmorStack(1);
         int currentBladder = ((IEntityDataSaver)player).getPersistentData().getInt("bladder");
-        if(!leggings.isEmpty()){
-            leggings.damage(currentBladder, rng, null);
+
+        Optional<ItemStack> diaper = IEntityDiapered.getDiaperFromPlayer(player);
+        if(diaper.isPresent()){
+            diaper.get().damage(currentBladder, rng, null);
+            accidentCaughtByDiaper = leggings.getDamage() < leggings.getMaxDamage();
+        }else{
+            if(!leggings.isEmpty()){
+            /*
             if(IEntityDiapered.checkDiapered(player)){
                 DiaperArmorItem daiData = (DiaperArmorItem) leggings.getItem();
                 int UsedAmount = leggings.getOrCreateNbt().getInt("Used") + 1;
                 leggings.getOrCreateNbt().putInt("Used", UsedAmount);
             }
-
-            accidentCaughtByDiaper = leggings.getDamage() < leggings.getMaxDamage();
+             */
+                leggings.damage(currentBladder, rng, null);
+            }
         }
+
+
         currentBladder = 0;
         /*
         if(!accidentCaughtByDiaper){
@@ -66,8 +76,8 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
                     20 * 5, 2, true, false, true), null);
         }
          */
-        ((IEntityDataSaver)player).getPersistentData().putInt("continence", Math.max(12, IEntityDiapered.getContinenceLevel(player) - 1));
-        ((IEntityDataSaver)player).getPersistentData().putInt("bladder", currentBladder);
+        IEntityDiapered.setContinenceLevel(player, Math.max(12, IEntityDiapered.getContinenceLevel(player) - 1));
+        IEntityDiapered.setBladderLevel(player, currentBladder);
         syncBladder(player);
     }
 }
