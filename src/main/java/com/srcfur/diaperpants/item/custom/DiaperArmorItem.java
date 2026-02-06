@@ -1,5 +1,6 @@
 package com.srcfur.diaperpants.item.custom;
 
+import com.srcfur.diaperpants.effects.ModEffects;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -58,14 +59,14 @@ public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
 
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if(stack.getDamage() == stack.getMaxDamage()){
-            if(!entity.hasStatusEffect(StatusEffects.SLOWNESS)){
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 1, 4));
+            if(!entity.hasStatusEffect(ModEffects.FULL_DIAPER_EFFECT)){
+                entity.addStatusEffect(new StatusEffectInstance(ModEffects.FULL_DIAPER_EFFECT, 1, 0));
             }
         }
         if(!entity.world.isClient){
             //OnWearerEffect((ServerPlayerEntity) entity);
             if(entity.isSubmergedInWater() && isWaterLoggable()){
-                if(entity.world.random.nextInt(0, stack.getMaxDamage()) > stack.getDamage()){
+                if(entity.world.random.nextInt(0, stack.getMaxDamage()) >= stack.getDamage()){
                     stack.damage(1, entity.world.getRandom(), (ServerPlayerEntity)entity);
                 }
             }

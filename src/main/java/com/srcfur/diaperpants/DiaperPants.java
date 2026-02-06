@@ -1,5 +1,6 @@
 package com.srcfur.diaperpants;
 
+import com.srcfur.diaperpants.effects.ModEffects;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import com.srcfur.diaperpants.block.ModBlockEntities;
@@ -8,6 +9,7 @@ import com.srcfur.diaperpants.fluids.ModFluids;
 import com.srcfur.diaperpants.item.ModItems;
 import com.srcfur.diaperpants.networking.ModMessages;
 import com.srcfur.diaperpants.server.BladderManager;
+import net.fabricmc.fabric.impl.loot.table.LootTablesV1Init;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,10 +27,13 @@ public class DiaperPants implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.registerAllBlockEntities();
 		ModFluids.registerFluids();
+		ModEffects.registerEffects();
 
 		//Networking
 		ModMessages.registerC2SPackets();
 		ModMessages.registerS2CPackets();
+
+
 
 		//Events
 		ServerTickEvents.START_WORLD_TICK.register(new BladderManager());
