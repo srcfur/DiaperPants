@@ -1,6 +1,5 @@
 package com.srcfur.diaperpants.item.custom;
 
-import com.srcfur.diaperpants.mixin.PlayerInventoryExposerMixin;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketsApi;
