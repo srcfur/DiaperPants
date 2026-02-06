@@ -9,10 +9,7 @@ import com.srcfur.diaperpants.networking.packet.BladderSyncS2CPacket;
 
 public class ModMessages {
     public static final Identifier BLADDER_SYNC_ID = new Identifier(DiaperPants.MOD_ID, "bladder_sync");
-    public static void registerC2SPackets(){
-        ServerPlayNetworking.registerGlobalReceiver(BLADDER_SYNC_ID, BladderFirstSyncRequestC2SPacket::receive);
-    }
     public static void registerS2CPackets(){
-        ClientPlayNetworking.registerGlobalReceiver(BLADDER_SYNC_ID, BladderSyncS2CPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(ModMessages.BLADDER_SYNC_ID, BladderFirstSyncRequestC2SPacket::receive);
     }
 }

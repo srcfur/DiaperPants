@@ -25,6 +25,7 @@ public class BladderHudOverlay implements HudRenderCallback {
         int y = 0;
         MinecraftClient client = MinecraftClient.getInstance();
         if(client != null){
+            if(client.world == null){return;}
             int width = client.getWindow().getScaledWidth();
             int height = client.getWindow().getScaledHeight();
             x = width / 2;

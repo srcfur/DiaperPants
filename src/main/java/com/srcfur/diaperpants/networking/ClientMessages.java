@@ -1,0 +1,12 @@
+package com.srcfur.diaperpants.networking;
+
+import com.srcfur.diaperpants.networking.packet.BladderFirstSyncRequestC2SPacket;
+import com.srcfur.diaperpants.networking.packet.BladderSyncS2CPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+
+public class ClientMessages {
+    public static void registerC2SPackets(){
+        ClientPlayNetworking.registerGlobalReceiver(ModMessages.BLADDER_SYNC_ID, BladderSyncS2CPacket::receive);
+    }
+}

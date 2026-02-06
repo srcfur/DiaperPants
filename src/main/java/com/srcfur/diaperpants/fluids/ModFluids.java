@@ -21,6 +21,7 @@ public class ModFluids {
     public static Block URINE_BLOCK;
 
     public static void registerFluids() {
+        /*
         STILL_URINE = Registry.register(Registry.FLUID, new Identifier(DiaperPants.MOD_ID, "urine"), new UrineFluid.Still());
         FLOWING_URINE = Registry.register(Registry.FLUID, new Identifier(DiaperPants.MOD_ID, "flowing_urine"), new UrineFluid.Flowing());
         URINE_BUCKET = Registry.register(Registry.ITEM, new Identifier(DiaperPants.MOD_ID, "urine_bucket"),
@@ -28,6 +29,6 @@ public class ModFluids {
         URINE_BOTTLE = Registry.register(Registry.ITEM, new Identifier(DiaperPants.MOD_ID, "urine_bottle"),
                 new UrineBottle(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(1)));
         URINE_BLOCK = Registry.register(Registry.BLOCK, new Identifier(DiaperPants.MOD_ID, "urine"), new FluidBlock(STILL_URINE, FabricBlockSettings.copy(Blocks.WATER)));
-
+    */
     }
 }

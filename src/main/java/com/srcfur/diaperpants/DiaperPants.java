@@ -30,7 +30,6 @@ public class DiaperPants implements ModInitializer {
 		ModEffects.registerEffects();
 
 		//Networking
-		ModMessages.registerC2SPackets();
 		ModMessages.registerS2CPackets();
 
 
