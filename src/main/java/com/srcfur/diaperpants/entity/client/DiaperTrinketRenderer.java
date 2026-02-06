@@ -16,12 +16,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.annotation.Debug;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 public class DiaperTrinketRenderer implements TrinketRenderer {
     @Override
     public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntity> contextModel, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        TrinketRenderer.translateToChest(matrices, (PlayerEntityModel<AbstractClientPlayerEntity>) contextModel, (AbstractClientPlayerEntity) entity);
-        matrices.push();
+        DiaperArmorRenderer diaperRenderer = (DiaperArmorRenderer) GeoArmorRenderer.getRenderer(DiaperArmorItem.class);
+        //Shouldn't cause issues... may...
+        BipedEntityModel<LivingEntity> bipedModel = (BipedEntityModel<LivingEntity>) contextModel;
+
+        diaperRenderer.render(matrices, vertexConsumers, stack, entity,
+                EquipmentSlot.CHEST, light, bipedModel);
+        diaperRenderer.render(matrices, vertexConsumers, stack, entity,
+                EquipmentSlot.LEGS, light, bipedModel);
     }
 }

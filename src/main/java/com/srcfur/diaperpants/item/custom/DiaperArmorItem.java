@@ -1,6 +1,9 @@
 package com.srcfur.diaperpants.item.custom;
 
+import com.srcfur.diaperpants.mixin.PlayerInventoryExposerMixin;
+import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -33,6 +36,8 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
     public String DiaperTexture = "";
@@ -45,36 +50,45 @@ public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
         super(material, slot, settings);
         this.MaxUses = maxUse;
         this.DiaperTexture = texturename;
+        //THIS IS THE DUMBEST LINE KNOWN TO MAN AND I WILL KILL MYSELF IF THIS DOESN'T WORK CAUSE I HAD TO WASTE MY TIME WRITING IT
+        //AND THIS DUMB ASS COMMENT >:(
+        TrinketsApi.registerTrinket(this, this);
     }
-    @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if(entity.isPlayer()){
-            PlayerEntity pe = (PlayerEntity) entity;
-            if(pe.getInventory().getArmorStack(1) == stack){
-                stack.getOrCreateNbt().putString("WornBy", pe.getDisplayName().getString());
-                if(!world.isClient){
-                    OnWearerEffect((ServerPlayerEntity) pe);
-                    if(stack.getDamage() == stack.getMaxDamage()){
-                        if(!pe.hasStatusEffect(StatusEffects.SLOWNESS)){
-                            pe.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 1, 4));
-                        }
-                    }
-                    if(entity.isSubmergedInWater() && isWaterLoggable()){
-                        if(world.random.nextInt(0, stack.getMaxDamage()) > stack.getDamage()){
-                            stack.damage(1, world.getRandom(), (ServerPlayerEntity)entity);
-                        }
-                    }
-                }
-                return; //Do this to skip trashing diaper
+
+    //After some great trials and tribulations, we have now adapted to the trinkets system for observing our state.
+
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if(stack.getDamage() == stack.getMaxDamage()){
+            if(!entity.hasStatusEffect(StatusEffects.SLOWNESS)){
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 1, 4));
             }
         }
-        if(!world.isClient){
-            if(stack.getNbt() != null){
-                if(!stack.getNbt().getString("WornBy").isEmpty()){
+        if(!entity.world.isClient){
+            //OnWearerEffect((ServerPlayerEntity) entity);
+            if(entity.isSubmergedInWater() && isWaterLoggable()){
+                if(entity.world.random.nextInt(0, stack.getMaxDamage()) > stack.getDamage()){
+                    stack.damage(1, entity.world.getRandom(), (ServerPlayerEntity)entity);
+                }
+            }
+        }
+    }
+    public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if(!entity.world.isClient){
+            stack.getOrCreateNbt().putString("WornBy", entity.getDisplayName().getString());
+        }
+    }
+    public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if(stack.getNbt() != null){
+            if(!stack.getNbt().getString("WornBy").isEmpty()){
+                if(entity.isPlayer()){
                     if(entity.isPlayer()){
-                        ((PlayerEntity)entity).getInventory().removeStack(((PlayerEntity)entity).getInventory().getSlotWithStack(stack));
-                        ((PlayerEntity)entity).sendMessage(Text.of("Took off diaper"), true);
-                        ((PlayerEntity)entity).getInventory().setStack(slot, GenerateTrashDiaper((PlayerEntity)entity, stack));
+                        //We need to expose selected item from the player entity class using a mix in
+                        //PlayerInventoryExposerMixin plr = (PlayerInventoryExposerMixin) entity;
+                        //plr.diaperpants$setSelectedItem(GenerateTrashDiaper((PlayerEntity) entity, plr.diaperpants$getSelectedItem()));
+                        if(!entity.world.isClient){
+                            ServerPlayerEntity player = (ServerPlayerEntity) entity;
+                            player.currentScreenHandler.setCursorStack(GenerateTrashDiaper(player, player.currentScreenHandler.getCursorStack()));
+                        }
                     }
                 }
             }
@@ -100,7 +114,7 @@ public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
 
     public ItemStack GenerateTrashDiaper(PlayerEntity entity, ItemStack stack){
 
-        String wearer = stack.getNbt().getString("WornBy");
+        String wearer = stack.getOrCreateNbt().getString("WornBy");
         ItemStack trashdiaper = new ItemStack(ModItems.DIAPERTRASH);
         trashdiaper.setCount(1);
         if(stack.getDamage() == 0){

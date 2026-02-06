@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants.item;
 
 import com.srcfur.diaperpants.DiaperPants;
+import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
@@ -14,18 +15,17 @@ import com.srcfur.diaperpants.item.custom.TykableDiaper;
 import java.util.List;
 
 public class ModItems {
+
     //Diapers
+    //Low tier
     public static final Item CHEAPDIAPER = registerDiaper("cheap", 1);
-
+    //Mid tier
     public static final Item MEDICALDIAPER = registerDiaper("medical", 3);
-    public static final Item PULLUPDIAPER = registerItem("pullupdiaper", new PullupDiaper(ModArmorMaterials.Diaper, EquipmentSlot.LEGS,
-            new FabricItemSettings().group(ItemGroup.MISC).maxDamage(20), "pullup", 5));
+    public static final Item PULLUPDIAPER = registerDiaper("pullup", 3);
+    //High tier
     public static final Item MEGADIAPER = registerDiaper("mega", 5);
-    public static final Item SUBSPACEDIAPER = registerItem("subspacediaper", new SubspaceDiaper(ModArmorMaterials.Diaper, EquipmentSlot.LEGS,
-            new FabricItemSettings().group(ItemGroup.MISC).maxDamage(50), "subspace", 5));
-    public static final Item LILTYKESDIAPER = registerItem("liltykediaper", new TykableDiaper(ModArmorMaterials.Diaper, EquipmentSlot.LEGS,
-            new FabricItemSettings().group(ItemGroup.MISC).maxDamage(80), "liltyke", 5));
-
+    public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 5);
+    public static final Item LILTYKESDIAPER = registerDiaper("liltyke", 5);
 
     public static final Item DIAPERTRASH = registerItem("balled_diaper", new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16)));
     public static final Item WOODPULP = registerItem("woodpulp", new Item(new FabricItemSettings().group(ItemGroup.MISC)));
@@ -42,7 +42,7 @@ public class ModItems {
 
     private static Item registerDiaper(String diapername, int MaxUse){
         Item diaper = registerItem(diapername + "diaper",
-                new DiaperArmorItem(ModArmorMaterials.Diaper, EquipmentSlot.LEGS,
+                new DiaperArmorItem(ModArmorMaterials.Diaper, EquipmentSlot.MAINHAND,
                         new FabricItemSettings().group(ItemGroup.MISC).maxDamage(MaxUse * 10), diapername, MaxUse));
         return diaper;
     }

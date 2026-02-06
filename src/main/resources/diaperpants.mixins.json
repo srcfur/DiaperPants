@@ -10,8 +10,6 @@
     "BedWetterMixin",
     "ServerWorldMixin",
     "PlayerBladderSyncFix",
-    "PeeInBucketMixin",
-    "PeeInBottleMixin",
     "IFoodMixin",
     "PottyOverride"
   ],
