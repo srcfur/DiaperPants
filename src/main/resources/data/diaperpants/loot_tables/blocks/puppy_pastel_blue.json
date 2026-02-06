@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "diaperpants:puppy_pastel_blue"
+        }
+      ],
+      "conditions": [
+      ]
+    }
+  ]
+}

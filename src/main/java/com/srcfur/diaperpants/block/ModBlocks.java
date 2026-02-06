@@ -19,9 +19,9 @@ public class ModBlocks {
     public static final Block PUPPY_PINK = registerBlock("puppy_pastel_pink",
             new Block(FabricBlockSettings.of(Material.WOOL).strength(1).requiresTool()), ItemGroup.BUILDING_BLOCKS);
     public static final Block TOILET_BASIC = registerBlock("toilet_basic",
-            new ToiletBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().drops(new Identifier("blocks/toilet_basic")).strength(4)), ItemGroup.MISC);
+            new ToiletBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().strength(4)), ItemGroup.MISC);
     public static final Block TOILET_COPPER = registerBlock("toilet_copper",
-            new ToiletBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().drops(new Identifier("block.diaperpants.toilet_copper")).strength(4)), ItemGroup.MISC);
+            new ToiletBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().strength(4)), ItemGroup.MISC);
 
 
     private static Block registerBlock(String name, Block block, ItemGroup group){

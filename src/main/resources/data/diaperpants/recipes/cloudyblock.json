@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pwp",
+    "wpw",
+    "pwp"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:light_blue_concrete_powder"
+    },
+    "w": {
+      "item": "minecraft:white_concrete_powder"
+    }
+  },
+  "result": {
+    "item": "diaperpants:puppy_pastel_blue"
+  }
+}

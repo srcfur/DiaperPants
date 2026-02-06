@@ -6,13 +6,10 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "diaperpants:toilet_basic"
+          "name": "diaperpants:toilet_copper"
         }
       ],
       "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
       ]
     }
   ]
