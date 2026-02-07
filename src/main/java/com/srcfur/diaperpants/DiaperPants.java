@@ -32,8 +32,6 @@ public class DiaperPants implements ModInitializer {
 		//Networking
 		ModMessages.registerS2CPackets();
 
-
-
 		//Events
 		ServerTickEvents.START_WORLD_TICK.register(new BladderManager());
 	}

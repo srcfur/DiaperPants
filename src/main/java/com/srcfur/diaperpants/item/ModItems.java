@@ -18,14 +18,14 @@ public class ModItems {
 
     //Diapers
     //Low tier
-    public static final Item CHEAPDIAPER = registerDiaper("cheap", 1);
+    public static final Item CHEAPDIAPER = registerDiaper("cheap", 6,1);
     //Mid tier
-    public static final Item MEDICALDIAPER = registerDiaper("medical", 3);
-    public static final Item PULLUPDIAPER = registerDiaper("pullup", 3);
+    public static final Item MEDICALDIAPER = registerDiaper("medical", 16, 3);
+    public static final Item PULLUPDIAPER = registerDiaper("pullup", 16,3);
     //High tier
-    public static final Item MEGADIAPER = registerDiaper("mega", 5);
-    public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 5);
-    public static final Item LILTYKESDIAPER = registerDiaper("liltyke", 5);
+    public static final Item MEGADIAPER = registerDiaper("mega", 30,5);
+    public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 30,5);
+    public static final Item LILTYKESDIAPER = registerDiaper("liltyke", 30,5);
 
     public static final Item DIAPERTRASH = registerItem("balled_diaper", new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16)));
     public static final Item WOODPULP = registerItem("woodpulp", new Item(new FabricItemSettings().group(ItemGroup.MISC)));
@@ -40,10 +40,10 @@ public class ModItems {
 
     public static List<Item> alldiapers = List.of();
 
-    private static Item registerDiaper(String diapername, int MaxUse){
+    private static Item registerDiaper(String diapername, int health, int MaxUse){
         Item diaper = registerItem(diapername + "diaper",
                 new DiaperArmorItem(ModArmorMaterials.Diaper, EquipmentSlot.MAINHAND,
-                        new FabricItemSettings().group(ItemGroup.MISC).maxDamage(MaxUse * 10), diapername, MaxUse));
+                        new FabricItemSettings().group(ItemGroup.MISC).maxDamage(health * 10), diapername, MaxUse));
         return diaper;
     }
     private static Item registerItem(String name, Item item){
