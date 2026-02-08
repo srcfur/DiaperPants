@@ -42,6 +42,8 @@ import java.util.logging.Logger;
 public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
     public String DiaperTexture = "";
     public int MaxUses = 1;
+    /// Not implemented yet, but will be used to differentiate behaviour so you can have washable diapers.
+    public boolean IsClothDiaper = false;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public DiaperArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
         super(material, slot, settings);
