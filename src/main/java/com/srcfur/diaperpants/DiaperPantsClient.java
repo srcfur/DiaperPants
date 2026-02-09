@@ -2,20 +2,29 @@ package com.srcfur.diaperpants;
 
 import com.srcfur.diaperpants.block.ModBlockEntities;
 import com.srcfur.diaperpants.block.ModBlocks;
+import com.srcfur.diaperpants.block.custom.DiaperBag;
+import com.srcfur.diaperpants.block.entity.DiaperBagEntity;
 import com.srcfur.diaperpants.client.BladderHudOverlay;
+import com.srcfur.diaperpants.client.renderers.DiaperBagRenderer;
 import com.srcfur.diaperpants.entity.client.DiaperTrinketRenderer;
 import com.srcfur.diaperpants.entity.client.armor.DiaperArmorRenderer;
 import com.srcfur.diaperpants.fluids.ModFluids;
 import com.srcfur.diaperpants.item.ModItems;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
-import com.srcfur.diaperpants.item.custom.PullupDiaper;
 import com.srcfur.diaperpants.networking.ClientMessages;
 import com.srcfur.diaperpants.networking.ModMessages;
 import dev.emi.trinkets.TrinketsClient;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.impl.client.rendering.BlockEntityRendererRegistryImpl;
+import net.fabricmc.fabric.mixin.lookup.BlockEntityTypeAccessor;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.item.Item;
+import net.minecraft.util.registry.Registry;
+import software.bernie.example.client.renderer.tile.HabitatTileRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 public class DiaperPantsClient implements ClientModInitializer {
@@ -29,6 +38,9 @@ public class DiaperPantsClient implements ClientModInitializer {
         HudRenderCallback.EVENT.register(new BladderHudOverlay());
 
         ClientMessages.registerC2SPackets();
+
+        //Register custom block renderers
+        BlockEntityRendererRegistry.register(ModBlockEntities.BagEntity, DiaperBagRenderer::new);
 
         //Register all our diapers :3
         registerDiaperTrinket(ModItems.CHEAPDIAPER);

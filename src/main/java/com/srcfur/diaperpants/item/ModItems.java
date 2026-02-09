@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants.item;
 
 import com.srcfur.diaperpants.DiaperPants;
+import com.srcfur.diaperpants.util.DiaperFamily;
 import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
@@ -8,9 +9,6 @@ import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
-import com.srcfur.diaperpants.item.custom.PullupDiaper;
-import com.srcfur.diaperpants.item.custom.SubspaceDiaper;
-import com.srcfur.diaperpants.item.custom.TykableDiaper;
 
 import java.util.List;
 
@@ -41,6 +39,9 @@ public class ModItems {
     public static List<Item> alldiapers = List.of();
 
     private static Item registerDiaper(String diapername, int health, int MaxUse){
+        return registerDiaper(diapername, health, MaxUse, DiaperFamily.NONE);
+    }
+    private static Item registerDiaper(String diapername, int health, int MaxUse, DiaperFamily family){
         Item diaper = registerItem(diapername + "diaper",
                 new DiaperArmorItem(ModArmorMaterials.Diaper, EquipmentSlot.MAINHAND,
                         new FabricItemSettings().group(ItemGroup.MISC).maxDamage(health * 10), diapername, MaxUse));

@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants.item.custom;
 
 import com.srcfur.diaperpants.effects.ModEffects;
+import com.srcfur.diaperpants.util.DiaperFamily;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -44,6 +45,7 @@ public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
     public int MaxUses = 1;
     /// Not implemented yet, but will be used to differentiate behaviour so you can have washable diapers.
     public boolean IsClothDiaper = false;
+    public DiaperFamily family = DiaperFamily.NONE;
     private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public DiaperArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
         super(material, slot, settings);
