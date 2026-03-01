@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants;
 
 import com.srcfur.diaperpants.effects.ModEffects;
+import com.srcfur.diaperpants.recipes.ModRecipes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import com.srcfur.diaperpants.block.ModBlockEntities;
@@ -28,6 +29,7 @@ public class DiaperPants implements ModInitializer {
 		ModBlockEntities.registerAllBlockEntities();
 		ModFluids.registerFluids();
 		ModEffects.registerEffects();
+		ModRecipes.RegisterRecipe();
 
 		//Networking
 		ModMessages.registerS2CPackets();

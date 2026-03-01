@@ -1,20 +1,17 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "###",
-        " D ",
-        "###"
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:white_wool"
+    "type": "diaperpants:diaper_assembly",
+    "ingredients": [
+        {
+            "item": "minecraft:paper"
         },
-        "D": {
+        {
             "item": "diaperpants:diapercore"
+        },
+        {
+            "item": "minecraft:paper"
         }
-    },
-    "result": {
-        "item": "diaperpants:medicaldiaper",
-        "count": 1
+    ],
+    "output": {
+        "item": "diaperpants:medicaldiaper"
     }
 }

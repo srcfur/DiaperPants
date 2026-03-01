@@ -1,20 +1,17 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "###",
-        " D ",
-        "###"
-    ],
-    "key": {
-        "#": {
+    "type": "diaperpants:diaper_assembly",
+    "ingredients": [
+        {
             "item": "minecraft:paper"
         },
-        "D": {
+        {
             "item": "diaperpants:cheapdiapercore"
+        },
+        {
+            "item": "minecraft:paper"
         }
-    },
-    "result": {
-        "item": "diaperpants:cheapdiaper",
-        "count": 1
+    ],
+    "output": {
+        "item": "diaperpants:cheapdiaper"
     }
 }

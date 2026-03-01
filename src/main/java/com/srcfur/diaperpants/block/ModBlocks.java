@@ -2,6 +2,7 @@ package com.srcfur.diaperpants.block;
 
 
 import com.srcfur.diaperpants.DiaperPants;
+import com.srcfur.diaperpants.block.custom.DiaperAssemblerBlock;
 import com.srcfur.diaperpants.block.custom.DiaperBag;
 import com.srcfur.diaperpants.block.custom.ToiletBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -25,6 +26,8 @@ public class ModBlocks {
             new ToiletBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().strength(4)), ItemGroup.MISC);
     public static final Block DIAPER_BAG = registerBlock("diaper_bag",
             new DiaperBag(FabricBlockSettings.of(Material.CARPET).nonOpaque()), ItemGroup.MISC);
+    public static final Block DIAPER_ASSEMBLER = registerBlock("diaperassembler",
+            new DiaperAssemblerBlock(FabricBlockSettings.of(Material.CARPET).nonOpaque()), ItemGroup.MISC);
 
 
     private static Block registerBlock(String name, Block block, ItemGroup group){

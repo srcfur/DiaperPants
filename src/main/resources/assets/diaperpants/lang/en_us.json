@@ -25,5 +25,13 @@
   "block.diaperpants.puppy_pastel_blue": "Cloudy Wallpaper",
   "block.diaperpants.puppy_pastel_pink": "Lovely Wallpaper",
   "block.diaperpants.toilet_basic": "Metal Toilet",
-  "block.diaperpants.toilet_copper": "Copper Toilet"
+  "block.diaperpants.toilet_copper": "Copper Toilet",
+  "block.diaperpants.diaperassembler": "Diaper Press",
+
+
+  "block.diaperpants.diaper_bag": "Empty Diaper Bag",
+  "block.diaperpants.diaper_bag.pullupdiaper": "Bag of Pull Ups",
+  "block.diaperpants.diaper_bag.medicaldiaper": "Bag of Medical Diapers",
+  "block.diaperpants.diaper_bag": "Empty Diaper Bag",
+  "block.diaperpants.diaper_bag": "Empty Diaper Bag"
 }
