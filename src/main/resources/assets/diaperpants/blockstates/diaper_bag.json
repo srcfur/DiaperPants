@@ -13,6 +13,11 @@
     "diaperfamily=cheap,facing=north": { "model": "diaperpants:block/bags/cheap", "y": 270 },
     "diaperfamily=cheap,facing=east": { "model": "diaperpants:block/bags/cheap", "y": 0 },
     "diaperfamily=cheap,facing=south": { "model": "diaperpants:block/bags/cheap", "y": 90 },
-    "diaperfamily=cheap,facing=west": { "model": "diaperpants:block/bags/cheap", "y": 180 }
+    "diaperfamily=cheap,facing=west": { "model": "diaperpants:block/bags/cheap", "y": 180 },
+
+    "diaperfamily=bunnyhopps,facing=north": { "model": "diaperpants:block/bags/bunnyhopps", "y": 270 },
+    "diaperfamily=bunnyhopps,facing=east": { "model": "diaperpants:block/bags/bunnyhopps", "y": 0 },
+    "diaperfamily=bunnyhopps,facing=south": { "model": "diaperpants:block/bags/bunnyhopps", "y": 90 },
+    "diaperfamily=bunnyhopps,facing=west": { "model": "diaperpants:block/bags/bunnyhopps", "y": 180 }
   }
 }

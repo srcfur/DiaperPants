@@ -7,7 +7,10 @@ public enum DiaperFamily implements StringIdentifiable {
     NONE("generic"),
     GROCERY("cheap"),
     PULLUPS("pullup"),
-    PEEKABU("peekabu");
+
+    //All of our references will be down here :3
+    ABU0("bunnyhopps"),
+    ABU1("peekabu");
 
     public final String DiaperName;
     private DiaperFamily(String diapername){

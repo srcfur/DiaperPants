@@ -54,6 +54,7 @@ public class DiaperPantsClient implements ClientModInitializer {
         registerDiaperTrinket(ModItems.PULLUPDIAPER);
         registerDiaperTrinket(ModItems.MEGADIAPER);
         registerDiaperTrinket(ModItems.SUBSPACEDIAPER);
+        registerDiaperTrinket(ModItems.BUNNYHOPPSDIAPER);
 
         HandledScreens.register(ModScreenHandlers.DIAPER_ASSEMBLER_SCREEN_HANDLER, DiaperAssemblerScreen::new);
     }
