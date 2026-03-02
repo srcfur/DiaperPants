@@ -18,7 +18,7 @@ public class ModItems {
 
     //Diapers
     //Low tier
-    public static final Item CHEAPDIAPER = registerDiaper("cheap", 6,1);
+    public static final Item CHEAPDIAPER = registerDiaper("cheap", 6,1, DiaperFamily.GROCERY);
     //Mid tier
     public static final Item MEDICALDIAPER = registerDiaper("medical", 16, 3);
     public static final Item PULLUPDIAPER = registerDiaper("pullup", 16,3, DiaperFamily.PULLUPS);

@@ -5,6 +5,7 @@ import net.minecraft.util.StringIdentifiable;
 public enum DiaperFamily implements StringIdentifiable {
 
     NONE("generic"),
+    GROCERY("cheap"),
     PULLUPS("pullup"),
     PEEKABU("peekabu");
 
