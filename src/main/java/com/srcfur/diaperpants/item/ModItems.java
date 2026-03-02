@@ -18,14 +18,14 @@ public class ModItems {
 
     //Diapers
     //Low tier
-    public static final Item CHEAPDIAPER = registerDiaper("cheap", 6,1, DiaperFamily.GROCERY);
+    public static final Item CHEAPDIAPER = registerDiaper("cheap", 6, DiaperFamily.GROCERY);
     //Mid tier
-    public static final Item MEDICALDIAPER = registerDiaper("medical", 16, 3);
-    public static final Item PULLUPDIAPER = registerDiaper("pullup", 16,3, DiaperFamily.PULLUPS);
+    public static final Item MEDICALDIAPER = registerDiaper("medical", 16);
+    public static final Item PULLUPDIAPER = registerDiaper("pullup", 16, DiaperFamily.PULLUPS);
     //High tier
-    public static final Item MEGADIAPER = registerDiaper("mega", 30,5);
-    public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 30,5);
-    public static final Item LILTYKESDIAPER = registerDiaper("liltyke", 30,5);
+    public static final Item MEGADIAPER = registerDiaper("mega", 30);
+    public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 30);
+    public static final Item LILTYKESDIAPER = registerDiaper("liltyke", 30);
 
     public static final Item DIAPERTRASH = registerItem("balled_diaper", new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16)));
     public static final Item WOODPULP = registerItem("woodpulp", new Item(new FabricItemSettings().group(ItemGroup.MISC)));
@@ -43,13 +43,13 @@ public class ModItems {
 
     public static List<Item> alldiapers = List.of();
 
-    private static Item registerDiaper(String diapername, int health, int MaxUse){
-        return registerDiaper(diapername, health, MaxUse, DiaperFamily.NONE);
+    private static Item registerDiaper(String diapername, int health){
+        return registerDiaper(diapername, health, DiaperFamily.NONE);
     }
-    private static Item registerDiaper(String diapername, int health, int MaxUse, DiaperFamily family){
+    private static Item registerDiaper(String diapername, int health, DiaperFamily family){
         Item diaper = registerItem(diapername + "diaper",
                 new DiaperArmorItem(ModArmorMaterials.Diaper, EquipmentSlot.MAINHAND,
-                        new FabricItemSettings().group(ItemGroup.MISC).maxDamage(health * 10), diapername, MaxUse));
+                        new FabricItemSettings().group(ItemGroup.MISC).maxDamage(health * 10), diapername, 5));
         ((DiaperArmorItem)diaper).family = family;
         return diaper;
     }
