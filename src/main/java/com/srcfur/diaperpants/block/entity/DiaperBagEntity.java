@@ -2,6 +2,7 @@ package com.srcfur.diaperpants.block.entity;
 
 import com.srcfur.diaperpants.block.ModBlockEntities;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
+import com.srcfur.diaperpants.item.inventory.ImplementedInventory;
 import com.srcfur.diaperpants.networking.ModMessages;
 import com.srcfur.diaperpants.util.DiaperFamily;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -21,15 +22,20 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.logging.Logger;
 
-public class DiaperBagEntity extends BlockEntity {
+public class DiaperBagEntity extends BlockEntity implements ImplementedInventory {
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(10, ItemStack.EMPTY);
     private int heldDiapers = 0;
     public boolean checkCanAddDiaper(ItemStack diaper){
+        if(!(diaper.getItem() instanceof DiaperArmorItem)){
+            return false;
+        }
         if(heldDiapers > 10){
             return false;
         }
@@ -112,7 +118,6 @@ public class DiaperBagEntity extends BlockEntity {
 
     //HOLY SHIT THIS IS STARTING TO MAKE SENSE!!!
     //PASS AN NBT COMPOUND TO THESE FUNCTION TO SEND OR RECEIVE DATA FROM IT!
-
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         heldDiapers = nbt.getInt("DiapersHeld");
@@ -125,8 +130,6 @@ public class DiaperBagEntity extends BlockEntity {
             Logger.getGlobal().info("Failed to get inventory :P");
         }
     }
-
-
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putInt("DiapersHeld", heldDiapers);
@@ -144,5 +147,26 @@ public class DiaperBagEntity extends BlockEntity {
         NbtCompound comp = new NbtCompound();
         writeNbt(comp);
         return comp;
+    }
+
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return inventory;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction side) {
+        return false;
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        return checkCanAddDiaper(stack);
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        InsertDiaper(stack);
+        SyncDiapers();
     }
 }

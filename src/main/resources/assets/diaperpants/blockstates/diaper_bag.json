@@ -1,8 +1,8 @@
 {
   "variants": {
-    "facing=north": { "model": "diaperpants:block/diaper_bag", "y": 90 },
-    "facing=east": { "model": "diaperpants:block/diaper_bag", "y": 180 },
-    "facing=south": { "model": "diaperpants:block/diaper_bag", "y": 270 },
-    "facing=west": { "model": "diaperpants:block/diaper_bag", "y": 0 }
+    "diaperfamily=generic,facing=north": { "model": "diaperpants:block/diaper_bag", "y": 90 },
+    "diaperfamily=generic,facing=east": { "model": "diaperpants:block/diaper_bag", "y": 180 },
+    "diaperfamily=generic,facing=south": { "model": "diaperpants:block/diaper_bag", "y": 270 },
+    "diaperfamily=generic,facing=west": { "model": "diaperpants:block/diaper_bag", "y": 0 }
   }
 }

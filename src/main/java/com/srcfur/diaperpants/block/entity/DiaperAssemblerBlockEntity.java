@@ -3,12 +3,17 @@ package com.srcfur.diaperpants.block.entity;
 import com.srcfur.diaperpants.block.ModBlockEntities;
 import com.srcfur.diaperpants.block.ModBlocks;
 import com.srcfur.diaperpants.item.inventory.ImplementedInventory;
+import com.srcfur.diaperpants.networking.ModMessages;
 import com.srcfur.diaperpants.recipes.DiaperAssemblerRecipe;
 import com.srcfur.diaperpants.screen.DiaperAssemblerScreen;
 import com.srcfur.diaperpants.screen.DiaperAssemblerScreenHandler;
+import com.terraformersmc.modmenu.util.mod.Mod;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -16,16 +21,21 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -33,6 +43,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,10 +54,16 @@ import java.util.logging.Logger;
 public class DiaperAssemblerBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory, IAnimatable {
     private final DefaultedList<ItemStack> inventory =
             DefaultedList.ofSize(4, ItemStack.EMPTY);
-    private AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
-    private int maxprogress = 40;
+    private int maxprogress = 30;
+    private boolean isProgressingAnimationState = false;
+    public enum DiaperAssemblyAnimationState {
+        idle,
+        pressing
+    }
+    private DiaperAssemblyAnimationState animation_state = DiaperAssemblyAnimationState.idle;
 
     public DiaperAssemblerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.DiaperAssembler, pos, state);
@@ -75,9 +92,24 @@ public class DiaperAssemblerBlockEntity extends BlockEntity implements NamedScre
         };
     }
 
+    public void setProgressingAnimationState(boolean value){
+        isProgressingAnimationState = value;
+    }
+
     @Override
     public DefaultedList<ItemStack> getItems() {
         return inventory;
+    }
+
+    public DefaultedList<ItemStack> getInventory() {
+        DefaultedList<ItemStack> outputinventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
+        outputinventory.set(0, inventory.get(3));
+        return outputinventory;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction side) {
+        return slot == 3 && stack != ItemStack.EMPTY;
     }
 
     @Override
@@ -105,10 +137,22 @@ public class DiaperAssemblerBlockEntity extends BlockEntity implements NamedScre
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, DiaperAssemblerBlockEntity entity) {
-        if(hasRecipe(entity) && hasNotReachedStackLimit(entity)) {
-            entity.progress++;
-            if(entity.progress >= entity.maxprogress){
-                craftItem(entity);
+        if(!world.isClient){
+            if(buildProgress(entity)) {
+                entity.progress++;
+                if(entity.progress >= entity.maxprogress){
+                    craftItem(entity);
+                }
+            }
+            boolean calcShouldProg = entity.progress > 0;
+            if(calcShouldProg != entity.isProgressingAnimationState){
+                entity.setProgressingAnimationState(calcShouldProg);
+                PacketByteBuf buffer = PacketByteBufs.create();
+                buffer.writeBlockPos(pos);
+                buffer.writeBoolean(calcShouldProg);
+                for(PlayerEntity plr : world.getPlayers()){
+                    ServerPlayNetworking.send((ServerPlayerEntity) plr, ModMessages.DIAPER_ASSEMBLER_SYNC_ID, buffer);
+                }
             }
         }
     }
@@ -145,8 +189,19 @@ public class DiaperAssemblerBlockEntity extends BlockEntity implements NamedScre
         return entity.getStack(3).isEmpty();
     }
 
+    private static boolean buildProgress(DiaperAssemblerBlockEntity entity){
+        return hasRecipe(entity) && hasNotReachedStackLimit(entity);
+    }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-        //event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
+        if(animation_state == DiaperAssemblyAnimationState.idle && isProgressingAnimationState){
+            event.getController().setAnimation(new AnimationBuilder().playAndHold("pressdiaper"));
+            animation_state = DiaperAssemblyAnimationState.pressing;
+        }
+        if(animation_state != DiaperAssemblyAnimationState.idle && !isProgressingAnimationState){
+            event.getController().setAnimation(new AnimationBuilder().playAndHold("idle"));
+            animation_state = DiaperAssemblyAnimationState.idle;
+        }
         return PlayState.CONTINUE;
     }
 

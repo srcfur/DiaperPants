@@ -1,7 +1,9 @@
 package com.srcfur.diaperpants.block.custom;
 
 import com.srcfur.diaperpants.block.entity.DiaperBagEntity;
+import com.srcfur.diaperpants.client.blockstates.ModProperties;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
+import com.srcfur.diaperpants.util.DiaperFamily;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
@@ -19,7 +22,9 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -27,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 public class DiaperBag extends BlockWithEntity implements BlockEntityProvider {
 
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<DiaperFamily> FAMILY = ModProperties.DIAPER_FAMILY;
 
     public DiaperBag(Settings settings) {
         super(settings);
@@ -61,10 +67,19 @@ public class DiaperBag extends BlockWithEntity implements BlockEntityProvider {
         return ActionResult.CONSUME;
     }
 
+
     @javax.annotation.Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx){
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(FAMILY, DiaperFamily.NONE);
+    }
+
+    @Override
+    public BlockState getAppearance(BlockState state, BlockRenderView renderView, BlockPos pos, Direction side, @Nullable BlockState sourceState, @Nullable BlockPos sourcePos) {
+        BlockState basis = super.getAppearance(state, renderView, pos, side, sourceState, sourcePos);
+        basis.with(FAMILY, DiaperFamily.NONE);
+
+        return basis;
     }
 
     @Override
@@ -84,6 +99,7 @@ public class DiaperBag extends BlockWithEntity implements BlockEntityProvider {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder){
+        builder.add(FAMILY);
         builder.add(FACING);
     }
 

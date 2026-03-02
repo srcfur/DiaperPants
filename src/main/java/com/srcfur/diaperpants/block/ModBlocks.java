@@ -24,19 +24,22 @@ public class ModBlocks {
             new ToiletBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().strength(4)), ItemGroup.MISC);
     public static final Block TOILET_COPPER = registerBlock("toilet_copper",
             new ToiletBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().strength(4)), ItemGroup.MISC);
-    public static final Block DIAPER_BAG = registerBlock("diaper_bag",
-            new DiaperBag(FabricBlockSettings.of(Material.CARPET).nonOpaque()), ItemGroup.MISC);
+    public static final Block DIAPER_BAG = registerOnlyBlock("diaper_bag",
+            new DiaperBag(FabricBlockSettings.of(Material.CARPET).nonOpaque()));
     public static final Block DIAPER_ASSEMBLER = registerBlock("diaperassembler",
             new DiaperAssemblerBlock(FabricBlockSettings.of(Material.CARPET).nonOpaque()), ItemGroup.MISC);
 
 
     private static Block registerBlock(String name, Block block, ItemGroup group){
         registerBlockItem(name, block, group);
-        return Registry.register(Registry.BLOCK, new Identifier(DiaperPants.MOD_ID, name), block);
+        return registerOnlyBlock(name, block);
     }
     public static Item registerBlockItem(String name, Block block, ItemGroup group){
         return Registry.register(Registry.ITEM, new Identifier(DiaperPants.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+                new BlockItem(block, new Item.Settings().group(group)));
+    }
+    public static Block registerOnlyBlock(String name, Block block){
+        return Registry.register(Registry.BLOCK, new Identifier(DiaperPants.MOD_ID, name), block);
     }
     public static void registerModBlocks() {
         DiaperPants.LOGGER.info("Registering modblocks for " + DiaperPants.MOD_ID);
