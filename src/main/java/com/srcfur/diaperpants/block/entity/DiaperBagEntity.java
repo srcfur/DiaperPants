@@ -73,7 +73,7 @@ public class DiaperBagEntity extends BlockEntity implements ImplementedInventory
         return false;
     }
     public String getDiaperBagName(){
-        if(heldDiapers == 0){
+        if(heldDiapers == 0 || inventory.get(heldDiapers - 1) == ItemStack.EMPTY) {
             return "Empty";
         }
         DiaperArmorItem item = (DiaperArmorItem) inventory.get(heldDiapers - 1).getItem();
@@ -130,7 +130,7 @@ public class DiaperBagEntity extends BlockEntity implements ImplementedInventory
             Logger.getGlobal().info("Failed to get inventory :P");
         }
     }
-    protected void writeNbt(NbtCompound nbt) {
+    public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putInt("DiapersHeld", heldDiapers);
         NbtList inv = new NbtList();
@@ -169,4 +169,5 @@ public class DiaperBagEntity extends BlockEntity implements ImplementedInventory
         InsertDiaper(stack);
         SyncDiapers();
     }
+
 }

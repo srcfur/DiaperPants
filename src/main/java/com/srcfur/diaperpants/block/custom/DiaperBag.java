@@ -2,24 +2,25 @@ package com.srcfur.diaperpants.block.custom;
 
 import com.srcfur.diaperpants.block.entity.DiaperBagEntity;
 import com.srcfur.diaperpants.client.blockstates.ModProperties;
+import com.srcfur.diaperpants.item.ModItems;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
 import com.srcfur.diaperpants.util.DiaperFamily;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -27,6 +28,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 public class DiaperBag extends BlockWithEntity implements BlockEntityProvider {
@@ -77,7 +79,6 @@ public class DiaperBag extends BlockWithEntity implements BlockEntityProvider {
     @Override
     public BlockState getAppearance(BlockState state, BlockRenderView renderView, BlockPos pos, Direction side, @Nullable BlockState sourceState, @Nullable BlockPos sourcePos) {
         BlockState basis = super.getAppearance(state, renderView, pos, side, sourceState, sourcePos);
-        basis.with(FAMILY, DiaperFamily.NONE);
 
         return basis;
     }
@@ -106,5 +107,20 @@ public class DiaperBag extends BlockWithEntity implements BlockEntityProvider {
     @Override
     public BlockRenderType getRenderType(BlockState state){
         return BlockRenderType.MODEL;
+    }
+    @Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (state.isOf(newState.getBlock())) {
+            return;
+        }
+        DiaperBagEntity entity = (DiaperBagEntity) world.getBlockEntity(pos);
+        ItemStack diaperbag = new ItemStack(ModItems.DIAPER_BAG_ITEM, 1);
+        NbtCompound comp = new NbtCompound();
+        entity.writeNbt(comp);
+        diaperbag.getOrCreateNbt().put("BlockEntityTag", comp);
+        ItemEntity itemdrop = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), diaperbag);
+        world.spawnEntity(itemdrop);
+        world.updateComparators(pos, this);
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 }
