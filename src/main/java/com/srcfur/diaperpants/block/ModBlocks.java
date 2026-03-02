@@ -5,6 +5,7 @@ import com.srcfur.diaperpants.DiaperPants;
 import com.srcfur.diaperpants.block.custom.DiaperAssemblerBlock;
 import com.srcfur.diaperpants.block.custom.DiaperBag;
 import com.srcfur.diaperpants.block.custom.ToiletBlock;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
@@ -31,12 +32,11 @@ public class ModBlocks {
 
 
     private static Block registerBlock(String name, Block block, ItemGroup group){
-        registerBlockItem(name, block, group);
-        return registerOnlyBlock(name, block);
+        return registerBlock(name, block, new FabricItemSettings().group(group));
     }
-    public static Item registerBlockItem(String name, Block block, ItemGroup group){
-        return Registry.register(Registry.ITEM, new Identifier(DiaperPants.MOD_ID, name),
-                new BlockItem(block, new Item.Settings().group(group)));
+    private static Block registerBlock(String name, Block block, FabricItemSettings itemsettings){
+        Registry.register(Registry.ITEM, new Identifier(DiaperPants.MOD_ID, name), new BlockItem(block, itemsettings));
+        return registerOnlyBlock(name, block);
     }
     public static Block registerOnlyBlock(String name, Block block){
         return Registry.register(Registry.BLOCK, new Identifier(DiaperPants.MOD_ID, name), block);
