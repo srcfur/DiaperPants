@@ -1,3 +1,6 @@
 {
-  "parent": "diaperpants:block/diaper_bag"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "diaperpants:item/diaperbag_mystery"
+  }
 }
