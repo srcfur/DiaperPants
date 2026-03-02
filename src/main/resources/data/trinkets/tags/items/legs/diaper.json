@@ -3,10 +3,8 @@
   "values": [
     "diaperpants:pullupdiaper",
     "diaperpants:subspacediaper",
-    "diaperpants:liltykediaper",
     "diaperpants:megadiaper",
     "diaperpants:medicaldiaper",
-    "diaperpants:liltykediaper",
-    "diaperpants:cheapdiaper"
+    "diaperpants:cheapdiaper",
   ]
 }

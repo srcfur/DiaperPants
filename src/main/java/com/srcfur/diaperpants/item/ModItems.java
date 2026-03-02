@@ -25,7 +25,6 @@ public class ModItems {
     //High tier
     public static final Item MEGADIAPER = registerDiaper("mega", 30);
     public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 30);
-    public static final Item LILTYKESDIAPER = registerDiaper("liltyke", 30);
 
     public static final Item DIAPERTRASH = registerItem("balled_diaper", new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16)));
     public static final Item WOODPULP = registerItem("woodpulp", new Item(new FabricItemSettings().group(ItemGroup.MISC)));
