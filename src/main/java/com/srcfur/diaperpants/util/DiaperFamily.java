@@ -7,8 +7,12 @@ public enum DiaperFamily implements StringIdentifiable {
     NONE("generic"),
     GROCERY("cheap"),
     PULLUPS("pullup"),
+    MEDICAL("medical"),
+    MEGACAPACITY("mega"),
 
     //All of our references will be down here :3
+    PHIGHTING("phighting"),
+
     ABU0("bunnyhopps"),
     ABU1("peekabu");
 
