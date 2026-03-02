@@ -33,5 +33,7 @@
   "block.diaperpants.diaper_bag.pullupdiaper": "Bag of Pull Ups",
   "block.diaperpants.diaper_bag.medicaldiaper": "Bag of Medical Diapers",
   "block.diaperpants.diaper_bag": "Empty Diaper Bag",
-  "block.diaperpants.diaper_bag": "Empty Diaper Bag"
+  "block.diaperpants.diaper_bag": "Empty Diaper Bag",
+
+  "diaperpants.diaperassembler.storagename": "Diaper Assembler Machine"
 }

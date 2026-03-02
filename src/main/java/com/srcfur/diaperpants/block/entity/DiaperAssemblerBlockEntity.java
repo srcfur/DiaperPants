@@ -2,6 +2,7 @@ package com.srcfur.diaperpants.block.entity;
 
 import com.srcfur.diaperpants.block.ModBlockEntities;
 import com.srcfur.diaperpants.block.ModBlocks;
+import com.srcfur.diaperpants.item.ModItems;
 import com.srcfur.diaperpants.item.inventory.ImplementedInventory;
 import com.srcfur.diaperpants.networking.ModMessages;
 import com.srcfur.diaperpants.recipes.DiaperAssemblerRecipe;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -102,9 +104,39 @@ public class DiaperAssemblerBlockEntity extends BlockEntity implements NamedScre
     }
 
     public DefaultedList<ItemStack> getInventory() {
-        DefaultedList<ItemStack> outputinventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
-        outputinventory.set(0, inventory.get(3));
-        return outputinventory;
+        return inventory;
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        if(slot == 3){
+            return false;
+        }
+        if(slot == 1){
+            return stack.getItem() == ModItems.LightDiaperCore || stack.getItem() == ModItems.DiaperCore || stack.getItem() == ModItems.TRIPLEDIAPERCORE;
+        }
+        if(world == null){
+            return false;
+        }
+        boolean valid = false;
+        int invslotgrabber = slot == 0 ? 2 : 0;
+        List<ItemStack> tempComp = List.of(slot == 0 ? stack : inventory.get(invslotgrabber), slot == 2 ? stack : inventory.get(invslotgrabber));
+        if(!inventory.get(1).isEmpty()){
+            List<DiaperAssemblerRecipe> allrecipes = world.getRecipeManager().listAllOfType(DiaperAssemblerRecipe.Type.INSTANCE);
+            for(DiaperAssemblerRecipe recipe : allrecipes){
+                //Basically return if it's a match or slot is empty. Should allow goodness, will probably break shit idk :P
+                if(recipe.getIngredients().isEmpty()){
+                    continue;
+                }
+                valid = (recipe.getIngredients().get(0).test(tempComp.get(0)) || tempComp.get(0).isEmpty())
+                        && recipe.getIngredients().get(1).test(inventory.get(1))
+                        && (recipe.getIngredients().get(2).test(tempComp.get(1)) || tempComp.get(1).isEmpty());
+                if(valid){
+                    break;
+                }
+            }
+        }
+        return valid;
     }
 
     @Override
