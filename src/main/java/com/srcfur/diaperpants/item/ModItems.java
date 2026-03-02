@@ -21,7 +21,7 @@ public class ModItems {
     public static final Item CHEAPDIAPER = registerDiaper("cheap", 6,1);
     //Mid tier
     public static final Item MEDICALDIAPER = registerDiaper("medical", 16, 3);
-    public static final Item PULLUPDIAPER = registerDiaper("pullup", 16,3);
+    public static final Item PULLUPDIAPER = registerDiaper("pullup", 16,3, DiaperFamily.PULLUPS);
     //High tier
     public static final Item MEGADIAPER = registerDiaper("mega", 30,5);
     public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 30,5);
@@ -39,7 +39,7 @@ public class ModItems {
     public static final Item QUESADILLA = registerItem("quesadilla", new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(QUESADILLACOMPONENT)));
 
     public static final Item DIAPER_BAG_ITEM = registerItem("diaper_bag", new DiaperBagBlockItem(ModBlocks.DIAPER_BAG,
-            new FabricItemSettings().group(ItemGroup.MISC)));
+            new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));
 
     public static List<Item> alldiapers = List.of();
 

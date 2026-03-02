@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants.client.renderers;
 
 import com.srcfur.diaperpants.block.entity.DiaperBagEntity;
+import com.srcfur.diaperpants.util.DiaperFamily;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -36,34 +37,36 @@ public class DiaperBagRenderer implements BlockEntityRenderer<DiaperBagEntity> {
         //This means we've broke it and this shit sucsks anyways :P
         if(MinecraftClient.getInstance().world.getBlockEntity(entity.getPos()) != entity){return;}
 
+        //Start out math here :3
         String diaperbag_display_text = entity.getDiaperBagName();
         float diaper_bag_display_offset = queue.getWidth(diaperbag_display_text) / wide_scalor;
         BlockState bs = MinecraftClient.getInstance().world.getBlockState(entity.getPos());
         Direction prop = bs.get(Properties.HORIZONTAL_FACING);
-
         //Start out rotated context
         matrices.translate(0.5f, 0.5f, 0.5f);
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(prop.asRotation() + 180));
+        //Do this so we show the text only if no custom design for the bag. Hopefully we should get to the point where this doesn't apply at all!
+        if(entity.getDiaperFamily() == DiaperFamily.NONE){
+            //We handle drawing the diaper bag's name here!
+            matrices.push();
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
+            matrices.translate(-diaper_bag_display_offset / 2, 0.1f, -0.32);
 
-        //We handle drawing the diaper bag's name here!
-        matrices.push();
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
-        matrices.translate(-diaper_bag_display_offset / 2, 0.1f, -0.32);
+            //Draw Front Text
+            matrices.scale(text_scalor[0], text_scalor[1], text_scalor[2]);
+            queue.draw(matrices, diaperbag_display_text, 0, 0, 0xffffffff);
+            matrices.pop();
 
-        //Draw Front Text
-        matrices.scale(text_scalor[0], text_scalor[1], text_scalor[2]);
-        queue.draw(matrices, diaperbag_display_text, 0, 0, 0xffffffff);
-        matrices.pop();
+            //Draw back text
+            matrices.push();
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+            matrices.translate(-diaper_bag_display_offset / 2, 0.1f, -0.32);
 
-        //Draw back text
-        matrices.push();
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-        matrices.translate(-diaper_bag_display_offset / 2, 0.1f, -0.32);
-
-        matrices.scale(text_scalor[0], text_scalor[1], text_scalor[2]);
-        queue.draw(matrices, diaperbag_display_text, 0, 0, 0xffffffff);
-        matrices.pop();
+            matrices.scale(text_scalor[0], text_scalor[1], text_scalor[2]);
+            queue.draw(matrices, diaperbag_display_text, 0, 0, 0xffffffff);
+            matrices.pop();
+        }
 
         //Now we start drawing the diaper's peeking from the top
         //We should also have a distance check for this as well :P

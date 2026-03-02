@@ -1,0 +1,7 @@
+{
+  "parent": "diaperpants:block/diaper_bag",
+  "textures": {
+    "0": "diaperpants:block/bags/pullupbag",
+    "particle": "diaperpants:block/bags/pullupbag"
+  }
+}

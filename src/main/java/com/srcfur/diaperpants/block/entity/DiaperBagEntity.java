@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants.block.entity;
 
 import com.srcfur.diaperpants.block.ModBlockEntities;
+import com.srcfur.diaperpants.client.blockstates.ModProperties;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
 import com.srcfur.diaperpants.item.inventory.ImplementedInventory;
 import com.srcfur.diaperpants.networking.ModMessages;
@@ -111,11 +112,20 @@ public class DiaperBagEntity extends BlockEntity implements ImplementedInventory
                 ServerPlayNetworking.send(players.get(i), ModMessages.DIAPER_BAG_SYNC_ID, buffer);
             }
         }
+        world.setBlockState(pos, world.getBlockState(pos).with(ModProperties.DIAPER_FAMILY, getDiaperFamily()));
     }
     public DiaperBagEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BagEntity, pos, state);
     }
-
+    public DiaperFamily getDiaperFamily(){
+        if(heldDiapers == 0){
+            return DiaperFamily.NONE;
+        }
+        if(inventory.get(0) == ItemStack.EMPTY){
+            return DiaperFamily.NONE;
+        }
+        return ((DiaperArmorItem)inventory.get(0).getItem()).family;
+    }
     //HOLY SHIT THIS IS STARTING TO MAKE SENSE!!!
     //PASS AN NBT COMPOUND TO THESE FUNCTION TO SEND OR RECEIVE DATA FROM IT!
     public void readNbt(NbtCompound nbt) {

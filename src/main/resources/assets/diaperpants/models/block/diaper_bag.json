@@ -5,7 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "diaperpants:block/bag0",
-		"particle": "diaperpants:block/bag0"
+		"particle": "diaperpants:block/bags/generic"
 	},
 	"elements": [
 		{

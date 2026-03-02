@@ -1,18 +1,17 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "diaperpants:diaper_assembly",
   "ingredients": [
     {
-      "item": "diaperpants:medicaldiaper"
+      "item": "minecraft:white_wool"
     },
     {
-      "item": "minecraft:orange_dye"
+      "item": "diaperpants:cheapdiapercore"
     },
     {
-      "item": "minecraft:light_blue_dye"
+      "item": "minecraft:white_wool"
     }
   ],
-  "result": {
-    "item": "diaperpants:pullupdiaper",
-    "count": 1
+  "output": {
+    "item": "diaperpants:pullupdiaper"
   }
 }
