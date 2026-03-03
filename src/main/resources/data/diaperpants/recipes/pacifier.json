@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "l  ",
+    "ix",
+    "l  "
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "x": {
+      "item": "minecraft:slime_ball"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "diaperpants:pacifier"
+  }
+}
