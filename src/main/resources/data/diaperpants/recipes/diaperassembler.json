@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "idi",
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:polished_andesite"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "d": {
+      "item": "minecraft:yellow_dye"
+    }
+  },
+  "result": {
+    "item": "diaperpants:diaperassembler"
+  }
+}

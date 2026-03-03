@@ -8,7 +8,9 @@ import com.srcfur.diaperpants.client.BladderHudOverlay;
 import com.srcfur.diaperpants.client.renderers.DiaperAssemblerRenderer;
 import com.srcfur.diaperpants.client.renderers.DiaperBagRenderer;
 import com.srcfur.diaperpants.entity.client.DiaperTrinketRenderer;
+import com.srcfur.diaperpants.entity.client.PacifierTrinketRenderer;
 import com.srcfur.diaperpants.entity.client.armor.DiaperArmorRenderer;
+import com.srcfur.diaperpants.entity.client.armor.PacifierArmorRenderer;
 import com.srcfur.diaperpants.fluids.ModFluids;
 import com.srcfur.diaperpants.item.ModItems;
 import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
@@ -55,6 +57,9 @@ public class DiaperPantsClient implements ClientModInitializer {
         registerDiaperTrinket(ModItems.MEGADIAPER);
         registerDiaperTrinket(ModItems.SUBSPACEDIAPER);
         registerDiaperTrinket(ModItems.BUNNYHOPPSDIAPER);
+
+        GeoArmorRenderer.registerArmorRenderer(new PacifierArmorRenderer(), ModItems.PACIFIER);
+        TrinketRendererRegistry.registerRenderer(ModItems.PACIFIER, new PacifierTrinketRenderer());
 
         HandledScreens.register(ModScreenHandlers.DIAPER_ASSEMBLER_SCREEN_HANDLER, DiaperAssemblerScreen::new);
     }

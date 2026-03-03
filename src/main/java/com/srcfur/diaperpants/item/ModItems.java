@@ -3,6 +3,7 @@ package com.srcfur.diaperpants.item;
 import com.srcfur.diaperpants.DiaperPants;
 import com.srcfur.diaperpants.block.ModBlocks;
 import com.srcfur.diaperpants.item.custom.DiaperBagBlockItem;
+import com.srcfur.diaperpants.item.custom.PacifierArmorItem;
 import com.srcfur.diaperpants.util.DiaperFamily;
 import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -37,6 +38,9 @@ public class ModItems {
 
     public static final FoodComponent QUESADILLACOMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(0.3f).alwaysEdible().build();
     public static final Item QUESADILLA = registerItem("quesadilla", new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(QUESADILLACOMPONENT)));
+
+    public static final Item PACIFIER = registerItem("pacifier", new PacifierArmorItem(ArmorMaterials.IRON, EquipmentSlot.MAINHAND,
+            new FabricItemSettings().group(ItemGroup.MISC)));
 
     public static final Item DIAPER_BAG_ITEM = registerItem("diaper_bag", new DiaperBagBlockItem(ModBlocks.DIAPER_BAG,
             new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)));

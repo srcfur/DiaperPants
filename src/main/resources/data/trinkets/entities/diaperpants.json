@@ -3,6 +3,7 @@
     "player"
   ],
   "slots": [
-    "legs/diaper"
+    "legs/diaper",
+    "head/mouth"
   ]
 }
