@@ -1,5 +1,6 @@
 package com.srcfur.diaperpants.block.custom;
 
+import com.srcfur.diaperpants.block.ModBlockEntities;
 import com.srcfur.diaperpants.block.entity.DiaperBagEntity;
 import com.srcfur.diaperpants.client.blockstates.ModProperties;
 import com.srcfur.diaperpants.item.ModItems;
@@ -8,6 +9,8 @@ import com.srcfur.diaperpants.util.DiaperFamily;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
@@ -122,5 +125,10 @@ public class DiaperBag extends BlockWithEntity implements BlockEntityProvider {
         world.spawnEntity(itemdrop);
         world.updateComparators(pos, this);
         super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.BagEntity, DiaperBagEntity::tick);
     }
 }

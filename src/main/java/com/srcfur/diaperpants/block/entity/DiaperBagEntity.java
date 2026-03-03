@@ -10,8 +10,10 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -25,6 +27,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -99,7 +102,7 @@ public class DiaperBagEntity extends BlockEntity implements ImplementedInventory
             buffer.writeItemStack(inventory.get(i));
         }
     }
-    private void SyncDiapers(){
+    public void SyncDiapers(){
         this.markDirty();
         PacketByteBuf buffer = PacketByteBufs.create();
         buffer.writeInt(pos.getX());
@@ -180,5 +183,11 @@ public class DiaperBagEntity extends BlockEntity implements ImplementedInventory
         InsertDiaper(stack);
         SyncDiapers();
     }
-
+    public static void tick(World world, BlockPos pos, BlockState state, DiaperBagEntity entity) {
+        if(!world.isClient){
+            if(state.get(ModProperties.DIAPER_FAMILY) != entity.getDiaperFamily()){
+                entity.SyncDiapers();
+            }
+        }
+    }
 }
