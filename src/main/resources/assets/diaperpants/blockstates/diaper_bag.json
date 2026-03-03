@@ -8,7 +8,7 @@
     "diaperfamily=cheap,facing=north": { "model": "diaperpants:block/bags/cheap", "y": 270 },
     "diaperfamily=cheap,facing=east": { "model": "diaperpants:block/bags/cheap", "y": 0 },
     "diaperfamily=cheap,facing=south": { "model": "diaperpants:block/bags/cheap", "y": 90 },
-    "diaperfamily=cheap,facing=west": { "model": "diaperpants:block/bags/cheap", "y": 180 },,
+    "diaperfamily=cheap,facing=west": { "model": "diaperpants:block/bags/cheap", "y": 180 },
 
     "diaperfamily=medical,facing=north": { "model": "diaperpants:block/bags/medical", "y": 270 },
     "diaperfamily=medical,facing=east": { "model": "diaperpants:block/bags/medical", "y": 0 },
