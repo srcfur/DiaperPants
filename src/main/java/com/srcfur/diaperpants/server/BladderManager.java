@@ -1,5 +1,6 @@
 package com.srcfur.diaperpants.server;
 
+import com.srcfur.diaperpants.statistics.ModStatistics;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -78,6 +79,7 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
          */
         IEntityDiapered.setContinenceLevel(player, Math.max(12, IEntityDiapered.getContinenceLevel(player) - 1));
         IEntityDiapered.setBladderLevel(player, currentBladder);
+        player.incrementStat(ModStatistics.BLADDER_FAILIURE_STAT);
         syncBladder(player);
     }
 }

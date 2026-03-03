@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants.item.custom;
 
 import com.srcfur.diaperpants.effects.ModEffects;
+import com.srcfur.diaperpants.statistics.ModStatistics;
 import com.srcfur.diaperpants.util.DiaperFamily;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
@@ -17,6 +18,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
@@ -67,6 +69,11 @@ public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
         if(stack.getDamage() == stack.getMaxDamage()){
             if(!entity.hasStatusEffect(ModEffects.FULL_DIAPER_EFFECT)){
                 entity.addStatusEffect(new StatusEffectInstance(ModEffects.FULL_DIAPER_EFFECT, 1, 0));
+                if(entity.isPlayer()){
+                    if(!entity.world.isClient){
+                        ((ServerPlayerEntity)entity).incrementStat(ModStatistics.SAGGING_DIAPER_TIME);
+                    }
+                }
             }
         }
         if(!entity.world.isClient){

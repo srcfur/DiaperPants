@@ -1,6 +1,7 @@
 package com.srcfur.diaperpants.mixin;
 
 import com.srcfur.diaperpants.item.ModItems;
+import com.srcfur.diaperpants.statistics.ModStatistics;
 import com.srcfur.diaperpants.util.IEntityDiapered;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -35,6 +36,7 @@ public abstract class BedWetterMixin implements ServerWorldMixin {
                     }
                     if(!stopAccident){
                         BladderManager.PottyAccident(spe, rng);
+                        spe.incrementStat(ModStatistics.BEDWETTING_STAT);
                     }
                 }
             }
