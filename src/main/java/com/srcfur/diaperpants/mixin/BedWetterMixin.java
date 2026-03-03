@@ -1,5 +1,9 @@
 package com.srcfur.diaperpants.mixin;
 
+import com.srcfur.diaperpants.item.ModItems;
+import com.srcfur.diaperpants.util.IEntityDiapered;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import com.srcfur.diaperpants.server.BladderManager;
@@ -9,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Mixin(ServerWorld.class)
@@ -20,12 +25,17 @@ public abstract class BedWetterMixin implements ServerWorldMixin {
         while(i < worldPlayers().size()){
             ServerPlayerEntity spe = worldPlayers().get(i);
             IEntityDataSaver data = (IEntityDataSaver)spe;
-            int bedwet = rng.nextInt(0, 10);
-            //System.out.println(spe.getDaisplayName().getString() + " has woken up with " + data.getPersistentData().getInt("bladder") + " urine! (Rolled: " + bedwet + ")");
-            if(data.getPersistentData().getInt("bladder") > 3){
-                if(bedwet < data.getPersistentData().getInt("bladder")){
-                    //spe.sendMessage(Text.of("Another wet morning..."), true);
-                    BladderManager.PottyAccident(spe, rng);
+            int bedwet = rng.nextInt(0, IEntityDiapered.getContinenceLevel(spe));
+            if(IEntityDiapered.getBladderLevel(spe) > IEntityDiapered.getContinenceLevel(spe) * 0.3){
+                if(bedwet < IEntityDiapered.getBladderLevel(spe)){
+                    Optional<TrinketComponent> trinketComponent = TrinketsApi.getTrinketComponent(spe);
+                    boolean stopAccident = false;
+                    if(trinketComponent.isPresent()){
+                        stopAccident = trinketComponent.get().isEquipped(ModItems.PACIFIER);
+                    }
+                    if(!stopAccident){
+                        BladderManager.PottyAccident(spe, rng);
+                    }
                 }
             }
             i += 1;
