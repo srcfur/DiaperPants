@@ -5,15 +5,25 @@
     "diaperfamily=generic,facing=south": { "model": "diaperpants:block/diaper_bag", "y": 90 },
     "diaperfamily=generic,facing=west": { "model": "diaperpants:block/diaper_bag", "y": 180 },
 
+    "diaperfamily=cheap,facing=north": { "model": "diaperpants:block/bags/cheap", "y": 270 },
+    "diaperfamily=cheap,facing=east": { "model": "diaperpants:block/bags/cheap", "y": 0 },
+    "diaperfamily=cheap,facing=south": { "model": "diaperpants:block/bags/cheap", "y": 90 },
+    "diaperfamily=cheap,facing=west": { "model": "diaperpants:block/bags/cheap", "y": 180 },,
+
+    "diaperfamily=medical,facing=north": { "model": "diaperpants:block/bags/medical", "y": 270 },
+    "diaperfamily=medical,facing=east": { "model": "diaperpants:block/bags/medical", "y": 0 },
+    "diaperfamily=medical,facing=south": { "model": "diaperpants:block/bags/medical", "y": 90 },
+    "diaperfamily=medical,facing=west": { "model": "diaperpants:block/bags/medical", "y": 180 },
+
+    "diaperfamily=mega,facing=north": { "model": "diaperpants:block/bags/mega", "y": 270 },
+    "diaperfamily=mega,facing=east": { "model": "diaperpants:block/bags/mega", "y": 0 },
+    "diaperfamily=mega,facing=south": { "model": "diaperpants:block/bags/mega", "y": 90 },
+    "diaperfamily=mega,facing=west": { "model": "diaperpants:block/bags/mega", "y": 180 },
+
     "diaperfamily=pullup,facing=north": { "model": "diaperpants:block/bags/pullup", "y": 270 },
     "diaperfamily=pullup,facing=east": { "model": "diaperpants:block/bags/pullup", "y": 0 },
     "diaperfamily=pullup,facing=south": { "model": "diaperpants:block/bags/pullup", "y": 90 },
     "diaperfamily=pullup,facing=west": { "model": "diaperpants:block/bags/pullup", "y": 180 },
-
-    "diaperfamily=cheap,facing=north": { "model": "diaperpants:block/bags/cheap", "y": 270 },
-    "diaperfamily=cheap,facing=east": { "model": "diaperpants:block/bags/cheap", "y": 0 },
-    "diaperfamily=cheap,facing=south": { "model": "diaperpants:block/bags/cheap", "y": 90 },
-    "diaperfamily=cheap,facing=west": { "model": "diaperpants:block/bags/cheap", "y": 180 },
 
     "diaperfamily=bunnyhopps,facing=north": { "model": "diaperpants:block/bags/bunnyhopps", "y": 270 },
     "diaperfamily=bunnyhopps,facing=east": { "model": "diaperpants:block/bags/bunnyhopps", "y": 0 },
