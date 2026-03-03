@@ -116,6 +116,7 @@ public class DiaperBagEntity extends BlockEntity implements ImplementedInventory
     }
     public DiaperBagEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BagEntity, pos, state);
+        state.with(ModProperties.DIAPER_FAMILY, DiaperFamily.NONE);
     }
     public DiaperFamily getDiaperFamily(){
         if(heldDiapers == 0){
