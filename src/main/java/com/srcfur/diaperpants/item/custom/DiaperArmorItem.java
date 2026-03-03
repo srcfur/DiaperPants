@@ -4,6 +4,7 @@ import com.srcfur.diaperpants.effects.ModEffects;
 import com.srcfur.diaperpants.util.DiaperFamily;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -37,6 +38,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -205,21 +207,14 @@ public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
             return PlayState.CONTINUE;
         }
 
-        // elements 2 to 6 are the armor so we take the sublist. Armorlist now only
-        // contains the 4 armor slots
-        List<Item> armorList = new ArrayList<>(4);
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            if (slot.getType() == EquipmentSlot.Type.ARMOR) {
-                if (livingEntity.getEquippedStack(slot) != null) {
-                    armorList.add(livingEntity.getEquippedStack(slot).getItem());
-                }
-            }
-        }
-
         // Make sure the player is wearing all the armor. If they are, continue playing
         // the animation, otherwise stop
-        boolean isWearingAll = armorList.get(2).getClass() == DiaperArmorItem.class;
-        return isWearingAll ? PlayState.CONTINUE : PlayState.STOP;
+        Optional<TrinketComponent> comp = TrinketsApi.getTrinketComponent(livingEntity);
+        if(comp.isPresent()){
+            boolean isWearingAll = comp.get().isEquipped(this);
+            return isWearingAll ? PlayState.CONTINUE : PlayState.STOP;
+        }
+        return PlayState.STOP;
     }
 
     @Override
