@@ -11,4 +11,7 @@ public class ModScreenHandlers {
     public static ScreenHandlerType<DiaperAssemblerScreenHandler> DIAPER_ASSEMBLER_SCREEN_HANDLER =
             Registry.SCREEN_HANDLER.register(Registry.SCREEN_HANDLER, new Identifier(DiaperPants.MOD_ID, "diaperassembler_screen"),
                     new ScreenHandlerType<>(DiaperAssemblerScreenHandler::new));
+    public static void initialize(){
+
+    }
 }
