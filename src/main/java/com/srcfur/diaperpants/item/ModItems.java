@@ -16,7 +16,7 @@ import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
 import java.util.List;
 
 public class ModItems {
-
+    public static final int DIAPER_ABSORBENCY_MULTIPLIER = 4;
     //Diapers
     //Low tier
     public static final Item CHEAPDIAPER = registerDiaper("cheap", 6, DiaperFamily.GROCERY);
@@ -53,7 +53,7 @@ public class ModItems {
     private static Item registerDiaper(String diapername, int health, DiaperFamily family){
         Item diaper = registerItem(diapername + "diaper",
                 new DiaperArmorItem(ModArmorMaterials.Diaper, EquipmentSlot.MAINHAND,
-                        new FabricItemSettings().group(ItemGroup.MISC).maxDamage(health * 10), diapername, 5));
+                        new FabricItemSettings().group(ItemGroup.MISC).maxDamage(health * DIAPER_ABSORBENCY_MULTIPLIER), diapername, 5));
         ((DiaperArmorItem)diaper).family = family;
         return diaper;
     }
