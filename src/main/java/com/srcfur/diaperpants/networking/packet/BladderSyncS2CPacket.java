@@ -1,5 +1,6 @@
 package com.srcfur.diaperpants.networking.packet;
 
+import com.srcfur.diaperpants.util.IEntityDiapered;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -12,7 +13,7 @@ public class BladderSyncS2CPacket {
         if(client.player == null){
             return;
         }
-        ((IEntityDataSaver)client.player).getPersistentData().putInt("bladder", buf.readInt());
-        ((IEntityDataSaver)client.player).getPersistentData().putInt("continence", buf.readInt());
+        IEntityDiapered.setBladderLevel(client.player, buf.readInt());
+        IEntityDiapered.setContinenceLevel(client.player, buf.readInt());
     }
 }
