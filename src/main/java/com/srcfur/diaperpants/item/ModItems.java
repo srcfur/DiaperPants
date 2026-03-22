@@ -16,7 +16,7 @@ import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
 import java.util.List;
 
 public class ModItems {
-    public static final int DIAPER_ABSORBENCY_MULTIPLIER = 4;
+    public static final int DIAPER_ABSORBENCY_MULTIPLIER = 6;
     //Diapers
     //Low tier
     public static final Item CHEAPDIAPER = registerDiaper("cheap", 6, DiaperFamily.GROCERY);

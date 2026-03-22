@@ -17,6 +17,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -242,5 +243,17 @@ public class DiaperArmorItem extends ArmorItem implements IAnimatable, Trinket {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    public int getPooped(ItemStack stack){
+        NbtCompound comp = stack.getOrCreateNbt();
+        if(!comp.contains("soiled")){
+            comp.putInt("soiled", 0);
+        }
+        return comp.getInt("soiled");
+    }
+    public void poopInDiaper(ItemStack stack){
+        NbtCompound comp = stack.getOrCreateNbt();
+        comp.putInt("soiled", getPooped(stack) + 1);
     }
 }

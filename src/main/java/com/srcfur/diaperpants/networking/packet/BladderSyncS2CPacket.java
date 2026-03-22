@@ -15,5 +15,6 @@ public class BladderSyncS2CPacket {
         }
         IEntityDiapered.setBladderLevel(client.player, buf.readInt());
         IEntityDiapered.setContinenceLevel(client.player, buf.readInt());
+        IEntityDiapered.setBowelLevel(client.player, buf.readInt());
     }
 }

@@ -35,7 +35,7 @@ public abstract class BedWetterMixin implements ServerWorldMixin {
                         stopAccident = trinketComponent.get().isEquipped(ModItems.PACIFIER);
                     }
                     if(!stopAccident){
-                        BladderManager.PottyAccident(spe, rng);
+                        BladderManager.PottyAccident(spe, rng, false);
                         spe.incrementStat(ModStatistics.BEDWETTING_STAT);
                     }
                 }

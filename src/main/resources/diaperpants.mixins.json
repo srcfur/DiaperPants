@@ -11,8 +11,8 @@
     "ServerWorldMixin",
     "PlayerBladderSyncFix",
     "IFoodMixin",
-    "PottyOverride",
-    "PlayerManagerMixin"
+    "PlayerManagerMixin",
+    "HungerManagerMixin"
   ],
   "client": [
 
