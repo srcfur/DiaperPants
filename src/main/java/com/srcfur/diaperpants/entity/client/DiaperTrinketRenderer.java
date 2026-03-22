@@ -24,7 +24,7 @@ public class DiaperTrinketRenderer implements TrinketRenderer {
         BipedEntityModel<LivingEntity> bipedModel = (BipedEntityModel<LivingEntity>) contextModel;
         AtomicBoolean blockRenderingUsingPants = new AtomicBoolean(false);
         entity.getArmorItems().forEach(armoritem ->  {
-            if(armoritem.getItem().getClass() == ArmorItem.class){
+            if(armoritem.getItem().getClass() == ArmorItem.class || ArmorItem.class.isAssignableFrom(armoritem.getItem().getClass())){
                 blockRenderingUsingPants.set(blockRenderingUsingPants.get() || ((ArmorItem)armoritem.getItem()).getSlotType() == EquipmentSlot.LEGS);
             }
         });

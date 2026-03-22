@@ -81,6 +81,7 @@ public class ToiletBlock extends BlockWithEntity implements BlockEntityProvider 
                     playerdata.getPersistentData().putInt("bladder", newBladder);
                     BladderManager.syncBladder((ServerPlayerEntity)player);
                     playerdata.getPersistentData().putInt("PottyUseDelay", 10);
+                    IEntityDiapered.setBowelLevel(player, 0);
                     int pottytraining = IEntityDiapered.getPottyTraining(player) + 1;
                     if(pottytraining >= 10){
                         pottytraining = 0;

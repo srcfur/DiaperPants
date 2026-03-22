@@ -35,6 +35,14 @@ public class DiaperArmorRenderer extends GeoArmorRenderer<DiaperArmorItem> {
         health = health;
         UseCount = (int)Math.floor(instance.MaxUses * health);
         UseCount = Math.min(UseCount, instance.MaxUses);
+
+        //Sneakily do messing stuff here!
+        //Start at 1 cause soiling0 is the default state
+        for(int i = 1; i < 4; i++){
+            this.setBoneVisibility("soiling" + i, instance.getPooped(itemStack) == i);
+        }
+
         return GetUseTextures(instance, UseCount);
     }
+
 }

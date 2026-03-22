@@ -3,6 +3,7 @@ package com.srcfur.diaperpants;
 import com.srcfur.diaperpants.effects.ModEffects;
 import com.srcfur.diaperpants.recipes.ModRecipes;
 import com.srcfur.diaperpants.screen.ModScreenHandlers;
+import com.srcfur.diaperpants.sounds.ModSounds;
 import com.srcfur.diaperpants.statistics.ModStatistics;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -34,6 +35,7 @@ public class DiaperPants implements ModInitializer {
 		ModRecipes.RegisterRecipe();
 		ModStatistics.RegisterStats();
 		ModScreenHandlers.initialize();
+		ModSounds.Initialize();
 
 		//Networking
 		ModMessages.registerS2CPackets();

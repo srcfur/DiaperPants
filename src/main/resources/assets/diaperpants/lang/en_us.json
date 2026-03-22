@@ -38,5 +38,7 @@
   "block.diaperpants.diaper_bag": "Empty Diaper Bag",
   "block.diaperpants.diaper_bag": "Empty Diaper Bag",
 
-  "diaperpants.diaperassembler.storagename": "Diaper Assembler Machine"
+  "diaperpants.diaperassembler.storagename": "Diaper Assembler Machine",
+
+  "diaperpants.diaper_soiling": "Pooping Pants"
 }

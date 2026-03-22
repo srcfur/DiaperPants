@@ -10,11 +10,13 @@ public class ModStatistics {
     public static Identifier BLADDER_FAILIURE_STAT;
     public static Identifier BEDWETTING_STAT;
     public static Identifier SAGGING_DIAPER_TIME;
+    public static Identifier POOPED_PANTS_STAT;
 
     public static void RegisterStats(){
         SAGGING_DIAPER_TIME = register("saggingdiaper", StatFormatter.TIME);
         BEDWETTING_STAT = register("bedwetter", StatFormatter.DEFAULT);
         BLADDER_FAILIURE_STAT = register("bladderfailstat", StatFormatter.DEFAULT);
+        POOPED_PANTS_STAT = register("poopedpants", StatFormatter.DEFAULT);
     }
 
     private static Identifier register(String name, StatFormatter sf){

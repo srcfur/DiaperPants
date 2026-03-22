@@ -1,5 +1,6 @@
 package com.srcfur.diaperpants.server;
 
+import com.srcfur.diaperpants.sounds.ModSounds;
 import com.srcfur.diaperpants.statistics.ModStatistics;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -12,6 +13,8 @@ import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
 import com.srcfur.diaperpants.networking.ModMessages;
 import com.srcfur.diaperpants.util.IEntityDataSaver;
 import com.srcfur.diaperpants.util.IEntityDiapered;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 
 import java.util.Optional;
 import java.util.Random;
@@ -22,6 +25,7 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
         PacketByteBuf buffer = PacketByteBufs.create();
         buffer.writeInt(IEntityDiapered.getBladderLevel(player));
         buffer.writeInt(IEntityDiapered.getContinenceLevel(player));
+        buffer.writeInt(IEntityDiapered.getBowelLevel(player));
         ServerPlayNetworking.send(player, ModMessages.BLADDER_SYNC_ID, buffer);
     }
 
@@ -38,8 +42,12 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
             }
             int PottyTimer = playerdata.getPersistentData().getInt("PottyUseDelay");
             PottyTimer--;
-            if(IEntityDiapered.getBladderLevel(world.getPlayers().get(i)) > playerdata.getPersistentData().getInt("continence")){
-                PottyAccident(world.getPlayers().get(i), world.getRandom());
+            if(IEntityDiapered.getBowelLevel(world.getPlayers().get(i)) > playerdata.getPersistentData().getInt("continence") * IEntityDiapered.CONTINENCE_BOWEL_MULTIPLIER){
+                PottyAccident(world.getPlayers().get(i), world.getRandom(), true);
+            }else{
+                if(IEntityDiapered.getBladderLevel(world.getPlayers().get(i)) > playerdata.getPersistentData().getInt("continence")){
+                    PottyAccident(world.getPlayers().get(i), world.getRandom(), false);
+                }
             }
             syncBladder(world.getPlayers().get(i));
             //playerdata.getPersistentData().putInt("TTNBladderGain", TicksTillNextBladderGainPossibility);
@@ -47,39 +55,33 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
         }
     }
 
-    public static void PottyAccident(ServerPlayerEntity player, Random rng){
-        boolean accidentCaughtByDiaper = false;
+    public static void PottyAccident(ServerPlayerEntity player, Random rng, boolean bowels){
         ItemStack leggings =  player.getInventory().getArmorStack(1);
-        int currentBladder = ((IEntityDataSaver)player).getPersistentData().getInt("bladder");
+        int damage = IEntityDiapered.getBladderLevel(player);
+        if(bowels){
+            damage += IEntityDiapered.getBowelLevel(player);
+        }
 
         Optional<ItemStack> diaper = IEntityDiapered.getDiaperFromPlayer(player);
         if(diaper.isPresent()){
-            diaper.get().damage(currentBladder, rng, null);
-            accidentCaughtByDiaper = leggings.getDamage() < leggings.getMaxDamage();
+            diaper.get().damage(damage, rng, null);
+            if(bowels){
+                ((DiaperArmorItem)diaper.get().getItem()).poopInDiaper(diaper.get());
+            }
         }else{
             if(!leggings.isEmpty()){
-            /*
-            if(IEntityDiapered.checkDiapered(player)){
-                DiaperArmorItem daiData = (DiaperArmorItem) leggings.getItem();
-                int UsedAmount = leggings.getOrCreateNbt().getInt("Used") + 1;
-                leggings.getOrCreateNbt().putInt("Used", UsedAmount);
-            }
-             */
-                leggings.damage(currentBladder, rng, null);
+                leggings.damage(damage, rng, null);
             }
         }
-
-
-        currentBladder = 0;
-        /*
-        if(!accidentCaughtByDiaper){
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS,
-                    20 * 5, 2, true, false, true), null);
-        }
-         */
         IEntityDiapered.setContinenceLevel(player, Math.max(12, IEntityDiapered.getContinenceLevel(player) - 1));
-        IEntityDiapered.setBladderLevel(player, currentBladder);
-        player.incrementStat(ModStatistics.BLADDER_FAILIURE_STAT);
+        IEntityDiapered.setBladderLevel(player, 0);
+        if(bowels){
+            IEntityDiapered.setBowelLevel(player, 0);
+            player.incrementStat(ModStatistics.POOPED_PANTS_STAT);
+            player.world.playSoundFromEntity(null, player, ModSounds.soiling_sound, SoundCategory.PLAYERS, 1, 1);
+        }else{
+            player.incrementStat(ModStatistics.BLADDER_FAILIURE_STAT);
+        }
         syncBladder(player);
     }
 }

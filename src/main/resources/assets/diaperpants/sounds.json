@@ -1,0 +1,11 @@
+{
+  "diaper_soiling": {
+    "subtitle": "diaperpants.diaper_soiling",
+    "sounds": [
+      "diaperpants:soiling0",
+      "diaperpants:soiling1",
+      "diaperpants:soiling2",
+      "diaperpants:soiling3"
+    ]
+  }
+}
