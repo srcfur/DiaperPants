@@ -40,5 +40,10 @@
 
   "diaperpants.diaperassembler.storagename": "Diaper Assembler Machine",
 
+  "stat.minecraft.bedwetter": "Times peed the bed",
+  "stat.minecraft.bladderfailstat": "Times peed pants",
+  "stat.minecraft.poopedpants": "Times pooped pants",
+  "stat.minecraft.saggingdiaper": "Time spent in full diapers",
+
   "diaperpants.diaper_soiling": "Pooping Pants"
 }
