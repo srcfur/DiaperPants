@@ -27,6 +27,11 @@ public abstract class BedWetterMixin implements ServerWorldMixin {
             ServerPlayerEntity spe = worldPlayers().get(i);
             IEntityDataSaver data = (IEntityDataSaver)spe;
             int bedwet = rng.nextInt(0, IEntityDiapered.getContinenceLevel(spe));
+            spe.getHungerManager().setExhaustion(spe.getHungerManager().getExhaustion() + rng.nextInt(20, 50));
+            //Hopefully there isn't some stupid fucking edge case and this does what we want!
+            while(spe.getHungerManager().getExhaustion() >= 4.0f){
+                spe.getHungerManager().update(spe);
+            }
             if(IEntityDiapered.getBladderLevel(spe) > IEntityDiapered.getContinenceLevel(spe) * 0.3){
                 if(bedwet < IEntityDiapered.getBladderLevel(spe)){
                     Optional<TrinketComponent> trinketComponent = TrinketsApi.getTrinketComponent(spe);
