@@ -1,5 +1,6 @@
 package com.srcfur.diaperpants.server;
 
+import com.srcfur.diaperpants.sounds.ModSounds;
 import com.srcfur.diaperpants.statistics.ModStatistics;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -12,6 +13,7 @@ import com.srcfur.diaperpants.item.custom.DiaperArmorItem;
 import com.srcfur.diaperpants.networking.ModMessages;
 import com.srcfur.diaperpants.util.IEntityDataSaver;
 import com.srcfur.diaperpants.util.IEntityDiapered;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 
 import java.util.Optional;
@@ -65,7 +67,6 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
             diaper.get().damage(damage, rng, null);
             if(bowels){
                 ((DiaperArmorItem)diaper.get().getItem()).poopInDiaper(diaper.get());
-                player.sendMessage(Text.of("You feel the slimy mess of your bowels start to fill your pants..."), true);
             }
         }else{
             if(!leggings.isEmpty()){
@@ -77,6 +78,7 @@ public class BladderManager implements ServerTickEvents.StartWorldTick {
         if(bowels){
             IEntityDiapered.setBowelLevel(player, 0);
             player.incrementStat(ModStatistics.POOPED_PANTS_STAT);
+            player.world.playSoundFromEntity(null, player, ModSounds.soiling_sound, SoundCategory.PLAYERS, 1, 1);
         }else{
             player.incrementStat(ModStatistics.BLADDER_FAILIURE_STAT);
         }

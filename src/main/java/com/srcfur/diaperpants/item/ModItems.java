@@ -24,9 +24,9 @@ public class ModItems {
     public static final Item MEDICALDIAPER = registerDiaper("medical", 16, DiaperFamily.MEDICAL);
     public static final Item PULLUPDIAPER = registerDiaper("pullup", 16, DiaperFamily.PULLUPS);
     //High tier
-    public static final Item MEGADIAPER = registerDiaper("mega", 30, DiaperFamily.MEGACAPACITY);
-    public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 30, DiaperFamily.PHIGHTING);
-    public static final Item BUNNYHOPPSDIAPER = registerDiaper("bunnyhopps", 30, DiaperFamily.ABU0);
+    public static final Item MEGADIAPER = registerDiaper("mega", 25, DiaperFamily.MEGACAPACITY);
+    public static final Item SUBSPACEDIAPER = registerDiaper("subspace", 25, DiaperFamily.PHIGHTING);
+    public static final Item BUNNYHOPPSDIAPER = registerDiaper("bunnyhopps", 25, DiaperFamily.ABU0);
 
     public static final Item DIAPERTRASH = registerItem("balled_diaper", new Item(new FabricItemSettings().group(ItemGroup.MISC).maxCount(16)));
     public static final Item WOODPULP = registerItem("woodpulp", new Item(new FabricItemSettings().group(ItemGroup.MISC)));
